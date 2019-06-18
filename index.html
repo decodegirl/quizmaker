@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+div#test{ border:#000 1px solid; padding:10px 40px 40px 40px; }
+</style>
+<script>
+var pos = 0, test, test_status, question, choice, choices, chA, chB, chC, correct = 0;
+var questions = [
+  ["What is 10 + 4?","12","14","15","B"],
+  ["Constructed in 1903, Queen's Drive acts as a ring road for which UK city?","Edinburgh","Liverpool","Sheffield","B"],
+  ["Hermes is the Greek god of:","Roads","War","Fire","A"],
+  ["Which tech company is known for it's iOS operating system?","Google","Samsung","Apple","C"],
+  ["Night Blindness is sometimes caused by a deficiency of which vitamin?","VitaminA","VitaminB","VitaminD","A"],
+  ["Abuja is the capital of which west african country?","Kenya","Nigeria","Ethiopia","B"],
+  ["Sir Isaac Newton featured on which British banknote?","Ę1","Ę200","Ę100","A"],
+  ["In April the 2018 Commonwealth Games were held in which Australian State?","Melbourne","Sydney","Queensland","C"],
+  ["Eritrea and which country officially declared an end to their twenty-year conflict?","Kenya","Egypt","Ethiopia","C"],
+  ["Which country became the first major industrialised country to legalise cannabis for recreational use?","Jamaica","Canada","Mexico","B"],
+  ["In July which planet made its closest approach to earth since 2003?","Mars","Mercury","Jupiter","A"],
+  ["Which US President was born in Honolulu, Hawaii in August 1961?","George Bush","George Washington","Barack Obama","C"],
+  ["Traditionally, what colour is the 'filling' in the middle of an Oreo cookie?","Brown","White","Black","B"],
+  ["In which year did Hewlett Packard introduce the laptop computer?","1984","1988","1986","A"],
+  ["A Loiner is a citizen of which English city?","London","Leeds","Scotland","B"],
+  ["Linus Torvalds is best known for creating which open-source computer operating system?","LINUX","IOS","Windows","A"],
+  ["Phil Neal won four European Cups whilst playing for which football club?","LIVERPOOL","Chelsea","ManU","A"],
+  ["Which US rapper had a June 2010 UK number one single with 'Not Afraid'?","Rick Ross","Lil Wayne","Eminem","C"],
+  ["Can you name the second largest planet in the solar system, first observed by Galileo Galilei in 1610?","Uranus","Jupiter","Saturn","C"],
+  ["In Avengers: Infinity War, the team join forces with which other superhero group in an attempt to defeat Thanos?","Guardians of the galaxy","Spiderman","Kingdom of wakanda","A"]
+
+
+];
+function _(x){
+	return document.getElementById(x);
+}
+function renderQuestion(){
+	test = _("test");
+	if(pos >= questions.length){
+		test.innerHTML = "<h2>You got "+correct+" of "+questions.length+" questions correct</h2>";
+		_("test_status").innerHTML = "Test Completed";
+		pos = 0;
+		correct = 0;
+		return false;
+	}
+	_("test_status").innerHTML = "Question "+(pos+1)+" of "+questions.length;
+	question = questions[pos][0];
+	chA = questions[pos][1];
+	chB = questions[pos][2];
+	chC = questions[pos][3];
+	test.innerHTML = "<h3>"+question+"</h3>";
+	test.innerHTML += "<input type='radio' name='choices' value='A'> "+chA+"<br>";
+	test.innerHTML += "<input type='radio' name='choices' value='B'> "+chB+"<br>";
+	test.innerHTML += "<input type='radio' name='choices' value='C'> "+chC+"<br><br>";
+	test.innerHTML += "<button onclick='checkAnswer()'>Submit Answer</button>";
+}
+function checkAnswer(){
+	choices = document.getElementsByName("choices");
+	for(var i=0; i<choices.length; i++){
+		if(choices[i].checked){
+			choice = choices[i].value;
+		}
+	}
+	if(choice == questions[pos][4]){
+		correct++;
+	}
+	pos++;
+	renderQuestion();
+}
+window.addEventListener("load", renderQuestion, false);
+</script>
+</head>
+<body>
+<h2 id="test_status"></h2>
+<div id="test"></div>
+</body>
+</html>
